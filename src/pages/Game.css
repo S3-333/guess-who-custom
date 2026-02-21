@@ -1,0 +1,424 @@
+/**
+ * Game.css – Estilos de todas las sub-vistas del modo juego.
+ */
+
+/* ══════════════════════════════════════════════
+   GAME SETUP (pantalla de configuración inicial)
+   ══════════════════════════════════════════════ */
+.game-setup {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background: radial-gradient(ellipse at 60% 40%, #161b22 0%, #0d1117 100%);
+}
+
+.game-setup__card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-10) var(--space-8);
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+
+.game-setup__icon {
+  font-size: 4rem;
+  margin-bottom: var(--space-4);
+}
+
+.game-setup__title {
+  font-size: var(--font-size-3xl);
+  font-weight: 800;
+  margin-bottom: var(--space-2);
+}
+
+.game-setup__subtitle {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-8);
+}
+
+.game-setup__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  text-align: left;
+  margin-bottom: var(--space-8);
+}
+
+.game-setup__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.game-setup__label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  padding: 2px var(--space-3);
+  border-radius: var(--radius-full);
+  display: inline-block;
+  width: fit-content;
+}
+
+.game-setup__label--p1 {
+  background: rgba(56, 139, 253, 0.15);
+  color: var(--color-info);
+  border: 1px solid var(--color-info);
+}
+
+.game-setup__label--p2 {
+  background: rgba(240, 165, 0, 0.15);
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+
+.game-setup__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+/* ══════════════════════════════════════════════
+   GAME BOARD (tablero activo)
+   ══════════════════════════════════════════════ */
+.game-board {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ─── Header ─── */
+.game-board__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.game-board__player-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.game-board__turn-badge {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  padding: var(--space-1) var(--space-4);
+  border-radius: var(--radius-full);
+  display: inline-block;
+}
+
+.game-board__turn-badge--p1 {
+  background: rgba(56, 139, 253, 0.15);
+  color: var(--color-info);
+  border: 1px solid rgba(56, 139, 253, 0.3);
+}
+
+.game-board__turn-badge--p2 {
+  background: rgba(240, 165, 0, 0.15);
+  color: var(--color-accent);
+  border: 1px solid rgba(240, 165, 0, 0.3);
+}
+
+.game-board__rival-hint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* Mi personaje secreto en el header */
+.game-board__my-secret {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2) var(--space-4);
+}
+
+.game-board__my-secret-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-weight: 600;
+}
+
+.game-board__my-secret-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.game-board__my-secret-img {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  border: 2px solid var(--color-accent);
+}
+
+.game-board__my-secret-name {
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  color: var(--color-accent);
+}
+
+/* ─── Instrucción ─── */
+.game-board__instruction {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+}
+
+/* ─── Grid del tablero ─── */
+.game-board__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--space-3);
+  flex: 1;
+}
+
+/* ─── Carta de juego ─── */
+.game-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast),
+    opacity var(--transition-normal);
+  position: relative;
+}
+
+.game-card:hover:not(.game-card--discarded):not(.game-card--mine) {
+  border-color: var(--color-danger);
+  transform: translateY(-2px);
+  box-shadow: 0 0 16px rgba(218, 54, 51, 0.25);
+}
+
+/* Carta descartada */
+.game-card--discarded {
+  opacity: 0.35;
+  cursor: pointer; /* Sigue siendo clickeable para restaurar */
+}
+
+.game-card--discarded:hover {
+  opacity: 0.6;
+  border-color: var(--color-text-muted);
+}
+
+/* Mi personaje — no se puede descartar */
+.game-card--mine {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-accent);
+  cursor: default;
+}
+
+/* Wrapper de imagen */
+.game-card__image-wrapper {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--color-surface-2);
+}
+
+.game-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-slow), filter var(--transition-slow);
+}
+
+.game-card--discarded .game-card__image {
+  filter: grayscale(1) blur(1px);
+  transform: scale(0.95);
+}
+
+/* Overlay de descartado */
+.game-card__discarded-overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--color-discarded-overlay);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+
+.game-card__discarded-x {
+  font-size: 3.5rem;
+  color: var(--color-danger);
+  font-weight: 900;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+}
+
+/* Overlay "mi personaje" */
+.game-card__mine-overlay {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  font-size: 1.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8));
+}
+
+/* Placeholder sin imagen */
+.game-card__no-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: var(--color-text-faint);
+}
+
+/* Nombre */
+.game-card__name {
+  display: block;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text);
+  text-align: center;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Botón adivinar */
+.game-card__guess-btn {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  opacity: 0;
+  transform: scale(0.85);
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
+  z-index: 2;
+  background: var(--color-surface) !important;
+  border-color: var(--color-accent) !important;
+  color: var(--color-accent) !important;
+  font-size: 0.65rem !important;
+  padding: 3px var(--space-2) !important;
+}
+
+.game-card:hover .game-card__guess-btn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Footer */
+.game-board__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+/* ══════════════════════════════════════════════
+   GAME FINISHED (pantalla de victoria)
+   ══════════════════════════════════════════════ */
+.game-finished {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background: radial-gradient(ellipse at center, #1a1a0a 0%, #0d1117 70%);
+}
+
+.game-finished__content {
+  text-align: center;
+  max-width: 520px;
+  width: 100%;
+}
+
+.game-finished__trophy {
+  font-size: 6rem;
+  display: block;
+  margin-bottom: var(--space-4);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.game-finished__title {
+  font-size: var(--font-size-4xl);
+  font-weight: 800;
+  color: var(--color-accent);
+  text-shadow: var(--shadow-accent);
+  margin-bottom: var(--space-3);
+}
+
+.game-finished__subtitle {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-8);
+}
+
+.game-finished__secret {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.game-finished__secret-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-3);
+}
+
+.game-finished__secret-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.game-finished__secret-img {
+  width: 120px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  border: 3px solid var(--color-accent);
+  box-shadow: var(--shadow-accent);
+}
+
+.game-finished__secret-name {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.game-finished__actions {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  flex-wrap: wrap;
+}

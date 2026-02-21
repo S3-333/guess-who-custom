@@ -1,0 +1,30 @@
+/**
+ * CardGrid.css – Sistema de grid responsivo para las cartas.
+ *
+ * CSS Grid con auto-fill y minmax:
+ * - auto-fill: crea tantas columnas como quepan en el ancho disponible
+ * - minmax(160px, 1fr): cada columna mide como mínimo 160px y como
+ *   máximo 1 fracción del espacio disponible
+ *
+ * Resultado: el grid se adapta AUTOMÁTICAMENTE sin media queries.
+ * Con 4 cartas en un escritorio habrá 4 columnas.
+ * Con 8 cartas habrá más columnas. En móvil habrá 2.
+ */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--space-4);
+  padding: var(--space-2);
+}
+
+/* Estado vacío */
+.card-grid__empty {
+  text-align: center;
+  padding: var(--space-12) var(--space-6);
+  color: var(--color-text-muted);
+  line-height: 2;
+}
+
+.card-grid__empty strong {
+  color: var(--color-accent);
+}
