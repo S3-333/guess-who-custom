@@ -20,8 +20,8 @@ import { PHASES } from '../hooks/useGame'
 import './Game.css'
 
 export function Game({ cards, game, actions, onBack }) {
-  // Filtramos solo cartas que tengan nombre e imagen
-  const validCards = cards.filter(c => c.name.trim() && c.image)
+  // Filtramos solo cartas que tengan nombre (la imagen es opcional)
+  const validCards = cards.filter(c => c.name.trim())
 
   // ─── PANTALLA DE CONFIGURACIÓN INICIAL (idle) ──────────────────
   if (game.phase === PHASES.IDLE) {
@@ -245,70 +245,79 @@ function GameBoard({ cards, game, onDiscard, onGuess, actions }) {
         Cuando estés seguro de quién es, hacé click en <strong>"Adivinar"</strong>.
       </p>
 
-      {/* ─── Grid del tablero de juego ─── */}
-      <div className="game-board__grid">
-        {cards.map(card => {
-          const isDiscarded = discarded.includes(card.id)
-          const isMySecret  = card.id === (isP1Turn ? game.p1Secret : game.p2Secret)
+      {/* ─── Contenedor 3D del tablero de juego ─── */}
+      <div className="game-board__wrapper">
+        <div className="game-board__3d-container">
+          <div className="game-board__grid">
+            {cards.map(card => {
+              const isDiscarded = discarded.includes(card.id)
+              const isMySecret  = card.id === (isP1Turn ? game.p1Secret : game.p2Secret)
 
-          return (
-            <div
-              key={card.id}
-              className={`
-                game-card
-                ${isDiscarded ? 'game-card--discarded' : ''}
-                ${isMySecret  ? 'game-card--mine' : ''}
-              `}
-              onClick={() => onDiscard(card.id)}
-              title={isMySecret && !isDiscarded ? 'Este es tu personaje (click para descartar)' : isDiscarded ? 'Descartado (click para restaurar)' : 'Click para descartar'}
-            >
-              {/* Imagen */}
-              <div className="game-card__image-wrapper">
-                {card.image ? (
-                  <img
-                    src={card.image}
-                    alt={card.name}
-                    className="game-card__image"
-                  />
-                ) : (
-                  <div className="game-card__no-image">?</div>
-                )}
-                {/* Overlay de descartado */}
-                {isDiscarded && (
-                  <div className="game-card__discarded-overlay">
-                    <span className="game-card__discarded-x">✕</span>
+              return (
+                <div key={card.id} className="game-card-slot">
+                  <div
+                    className={`
+                      game-card-3d
+                      ${isDiscarded ? 'game-card-3d--discarded' : ''}
+                      ${isMySecret  ? 'game-card-3d--mine' : ''}
+                    `}
+                    onClick={() => onDiscard(card.id)}
+                    title={isMySecret && !isDiscarded ? 'Este es tu personaje (click para descartar)' : isDiscarded ? 'Descartado (click para restaurar)' : 'Click para descartar'}
+                  >
+                    {/* Parte de atrás de la carta (visible cuando se abate) */}
+                    <div className="game-card-3d__face game-card-3d__back">
+                      <span>?</span>
+                    </div>
+
+                    {/* Frente de la carta */}
+                    <div className="game-card-3d__face game-card-3d__front">
+                      <div className="game-card__image-wrapper">
+                        {card.image ? (
+                          <img
+                            src={card.image}
+                            alt={card.name}
+                            className="game-card__image"
+                          />
+                        ) : (
+                          <div className="game-card__no-image">
+                            <svg viewBox="0 0 24 24">
+                              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                            </svg>
+                          </div>
+                        )}
+                        {/* Indicador "mi personaje" */}
+                        {isMySecret && (
+                          <div className="game-card__mine-overlay">⭐</div>
+                        )}
+                      </div>
+                      <span className="game-card__name">{card.name}</span>
+
+                      {/* Botón de adivinar */}
+                      {!isDiscarded && (
+                        <button
+                          className="btn btn-secondary btn-sm game-card__guess-btn"
+                          onClick={(e) => {
+                            e.stopPropagation() // No propagar el click
+                            if (window.confirm(`¿Adivinás que el personaje de ${rivalName} es "${card.name}"?`)) {
+                              const rivalSecret = isP1Turn ? game.p2Secret : game.p1Secret
+                              if (card.id !== rivalSecret) {
+                                alert(`¡Incorrecto! El personaje de ${rivalName} no es ${card.name}.\n\nPierdes tu turno y la carta se descarta.`)
+                              }
+                              onGuess(card.id)
+                            }
+                          }}
+                          aria-label={`Adivinar: ${card.name}`}
+                        >
+                          🎯 Adivinar
+                        </button>
+                      )}
+                    </div>
                   </div>
-                )}
-                {/* Indicador "mi personaje" */}
-                {isMySecret && (
-                  <div className="game-card__mine-overlay">⭐</div>
-                )}
-              </div>
-              {/* Nombre */}
-              <span className="game-card__name">{card.name}</span>
-
-              {/* Botón de adivinar (solo si no está descartado, permitiendo adivinar el propio si se desea) */}
-              {!isDiscarded && (
-                <button
-                  className="btn btn-secondary btn-sm game-card__guess-btn"
-                  onClick={(e) => {
-                    e.stopPropagation() // No propagar el click al div padre
-                    if (window.confirm(`¿Adivinás que el personaje de ${rivalName} es "${card.name}"?`)) {
-                      const rivalSecret = isP1Turn ? game.p2Secret : game.p1Secret
-                      if (card.id !== rivalSecret) {
-                        alert(`¡Incorrecto! El personaje de ${rivalName} no es ${card.name}.\n\nPierdes tu turno y la carta se descarta.`)
-                      }
-                      onGuess(card.id)
-                    }
-                  }}
-                  aria-label={`Adivinar: ${card.name}`}
-                >
-                  🎯 Adivinar
-                </button>
-              )}
-            </div>
-          )
-        })}
+                </div>
+              )
+            })}
+          </div>
+        </div>
       </div>
 
       {/* ─── Footer del juego ─── */}
