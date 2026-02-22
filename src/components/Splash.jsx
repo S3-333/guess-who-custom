@@ -5,6 +5,7 @@ import './Splash.css'
 
 export function Splash({ onDismiss }) {
   const [svgActive, setSvgActive] = useState(false)
+  const [isHiding, setIsHiding] = useState(false)
 
   useEffect(() => {
     // Activar la animación del SVG justo después del rebote inicial de la pantalla
@@ -14,8 +15,20 @@ export function Splash({ onDismiss }) {
     return () => clearTimeout(timer)
   }, [])
 
+  const handleClick = () => {
+    if (isHiding) return
+    setIsHiding(true)
+    // Esperamos a que la animación de salida termine antes de quitar el componente
+    setTimeout(() => {
+      onDismiss()
+    }, 800) // Coincide con la duración de splashExitUp en CSS
+  }
+
   return (
-    <div className="splash-screen" onClick={onDismiss}>
+    <div 
+      className={`splash-screen ${isHiding ? 'splash-screen--hiding' : ''}`} 
+      onClick={handleClick}
+    >
       <div className="splash-screen__content">
         <div className="splash-screen__logo-container">
           {/* La clase 'active' en el SVG es lo que busca el CSS externo */}

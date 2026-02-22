@@ -17,6 +17,11 @@
   /* Bouncing down from top */
   animation: splashBounceDown 1s cubic-bezier(0.28, 0.84, 0.42, 1) forwards;
   transform: translateY(-100%);
+  transition: opacity 0.5s ease;
+}
+
+.splash-screen--hiding {
+  animation: splashExitUp 0.8s cubic-bezier(0.75, 0, 0.25, 1) forwards !important;
 }
 
 @keyframes splashBounceDown {
@@ -95,4 +100,16 @@
   transform: translateY(0);
   /* Damos un pequeño delay extra para que se vea después de que el logo se pinte un poco */
   transition-delay: 1.5s; 
+}
+
+@keyframes splashExitUp {
+  0% {
+    transform: translateY(0);
+  }
+  15% {
+    transform: translateY(2%);
+  }
+  100% {
+    transform: translateY(-110%);
+  }
 }
