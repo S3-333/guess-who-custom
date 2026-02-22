@@ -21,6 +21,7 @@ import { useBoard } from './hooks/useBoard'
 import { useGame } from './hooks/useGame'
 import { Editor } from './pages/Editor'
 import { Game } from './pages/Game'
+import { Splash } from './components/Splash'
 import './styles/App.css'
 
 /**
@@ -34,6 +35,8 @@ const PAGES = {
 }
 
 function App() {
+  const [showSplash, setShowSplash] = useState(true)
+
   /**
    * Estado de navegación: qué página estamos viendo.
    * Simple, claro y sin librerías externas.
@@ -91,9 +94,11 @@ function App() {
   }
 
   return (
-    <div className="app">
-      {/* Navegación mínima / branding */}
-      <nav className="app-nav" aria-label="Navegación principal">
+    <>
+      {showSplash && <Splash onDismiss={() => setShowSplash(false)} />}
+      <div className="app">
+        {/* Navegación mínima / branding */}
+        <nav className="app-nav" aria-label="Navegación principal">
         <button
           className={`app-nav__tab ${currentPage === PAGES.EDITOR ? 'app-nav__tab--active' : ''}`}
           onClick={handleGoToEditor}
@@ -132,7 +137,8 @@ function App() {
           />
         )}
       </main>
-    </div>
+      </div>
+    </>
   )
 }
 
