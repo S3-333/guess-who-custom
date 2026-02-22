@@ -21,7 +21,9 @@ import { useBoard } from './hooks/useBoard'
 import { useGame } from './hooks/useGame'
 import { Editor } from './pages/Editor'
 import { Game } from './pages/Game'
-import { Splash } from './components/Splash'
+import { Splash } from './components/Splash/Splash'
+import { GuessWhoLogo } from './components/Splash/GuessWhoLogo'
+import logoPng from './assets/ghuess-who-logo.png'
 import './styles/App.css'
 
 /**
@@ -52,9 +54,6 @@ function App() {
 
   /**
    * useGame: hook que maneja toda la lógica del juego.
-   * También vive en App para que persista si el usuario
-   * navega entre páginas (aunque en la práctica el juego
-   * resetea al volver al editor).
    */
   const {
     game,
@@ -68,8 +67,6 @@ function App() {
     resetGame,
   } = useGame(board.cards)
 
-  // Agrupamos las acciones del juego en un objeto para no
-  // pasar 8 props separadas → más limpio y extensible
   const gameActions = {
     startGame,
     p1SelectSecret,
@@ -97,28 +94,12 @@ function App() {
     <>
       {showSplash && <Splash onDismiss={() => setShowSplash(false)} />}
       <div className="app">
-        {/* Navegación mínima / branding */}
-        <nav className="app-nav" aria-label="Navegación principal">
-        <button
-          className={`app-nav__tab ${currentPage === PAGES.EDITOR ? 'app-nav__tab--active' : ''}`}
-          onClick={handleGoToEditor}
-          aria-current={currentPage === PAGES.EDITOR ? 'page' : undefined}
-        >
-          🎭 Editor
-        </button>
-        <div className="app-nav__brand">Guess Who</div>
-        <button
-          className={`app-nav__tab ${currentPage === PAGES.GAME ? 'app-nav__tab--active' : ''}`}
-          onClick={handleGoToGame}
-          disabled={board.cards.filter(c => c.name.trim() && c.image).length < 2}
-          title={board.cards.filter(c => c.name.trim() && c.image).length < 2
-            ? 'Necesitás al menos 2 cartas con imagen y nombre para jugar'
-            : 'Ir al modo juego'
-          }
-        >
-          🎮 Jugar
-        </button>
-      </nav>
+        {/* Navegación rediseñada: Logo PNG central clickeable */}
+        <nav className="app-nav" aria-label="Branding principal">
+          <div className="app-nav__logo-wrapper" onClick={handleGoToEditor} style={{ cursor: 'pointer' }}>
+             <img src={logoPng} alt="Guess Who Logo" className="app-nav__logo-png" />
+          </div>
+        </nav>
 
       {/* Renderizado condicional de la página activa */}
       <main className="app-main">

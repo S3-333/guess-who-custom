@@ -20,62 +20,37 @@
 .app-nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 var(--space-6);
-  height: 56px;
-  background: var(--color-surface);
-  border-bottom: 1px solid var(--color-border);
+  justify-content: center;
+  height: 80px;
+  background: #065094;
+  background: radial-gradient(circle at center, #408ECC 0%, #065094 80%, #0D3861 100%);
+  border-bottom: 4px solid #0D3861;
   position: sticky;
   top: 0;
   z-index: 50;
-  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-/* Branding central */
-.app-nav__brand {
-  font-size: var(--font-size-xl);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  background: linear-gradient(135deg, var(--color-accent), #fff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  user-select: none;
-}
-
-/* Tabs de navegación */
-.app-nav__tab {
-  background: transparent;
-  border: 1px solid transparent;
-  color: var(--color-text-muted);
-  font-family: var(--font-family);
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition:
-    color var(--transition-fast),
-    background-color var(--transition-fast),
-    border-color var(--transition-fast);
+.app-nav__logo-wrapper {
+  height: 90%;
+  max-width: 300px;
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  justify-content: center;
 }
 
-.app-nav__tab:hover:not(:disabled) {
-  color: var(--color-text);
-  background: var(--color-surface-2);
-  border-color: var(--color-border);
+.app-nav__logo-png {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  transition: transform 0.2s ease;
 }
 
-.app-nav__tab--active {
-  color: var(--color-accent) !important;
-  background: var(--color-accent-glow) !important;
-  border-color: rgba(240, 165, 0, 0.3) !important;
+.app-nav__logo-png:hover {
+  transform: scale(1.05);
 }
 
-.app-nav__tab:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+.app-nav__logo-png:active {
+  transform: scale(0.95);
 }

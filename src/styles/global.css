@@ -20,33 +20,36 @@
 
 /* ─── Design Tokens (variables CSS) ─────────────────────────── */
 :root {
-  /* Paleta principal: azul-marino profundo, inspirado en juegos de mesa clásicos */
-  --color-bg: #0d1117;
-  --color-surface: #161b22;
-  --color-surface-2: #21262d;
-  --color-border: #30363d;
+  /* Paleta principal: Los colores de la imagen de referencia */
+  --color-bg: #065094;
+  --color-bg-light: #408ECC;
+  --color-bg-dark: #0D3861;
+  --color-surface: #ffffff;
+  --color-surface-2: #f4f7f8;
+  --color-border: #0D3861;
 
-  /* Acento dorado/ámbar — color característico del Guess Who original */
-  --color-accent: #f0a500;
-  --color-accent-dark: #c98a00;
-  --color-accent-glow: rgba(240, 165, 0, 0.25);
+  /* Acento rojo — el color del logo */
+  --color-accent: #D3212F;
+  --color-accent-dark: #b01524;
+  --color-accent-glow: rgba(211, 33, 47, 0.25);
+
+  /* Acento peach — para hints o detalles secundarios */
+  --color-peach: #E5907C;
 
   /* Colores semánticos */
-  --color-success: #2ea043;
-  --color-danger: #da3633;
-  --color-warning: #e3b341;
-  --color-info: #388bfd;
+  --color-success: #4CAF50;
+  --color-danger: #D3212F;
+  --color-warning: #FFC107;
+  --color-info: #408ECC;
 
   /* Texto */
-  --color-text: #e6edf3;
-  --color-text-muted: #8b949e;
-  --color-text-faint: #484f58;
+  --color-text: #ffffff; /* Casi todo el texto sobre el azul será blanco ahora */
+  --color-text-dark: #1a1b26;
+  --color-text-muted: #bbccdd;
+  --color-text-faint: #8b949e;
 
-  /* Carta descartada */
-  --color-discarded-overlay: rgba(13, 17, 23, 0.78);
-
-  /* Tipografía */
-  --font-family: "Inter", system-ui, sans-serif;
+  /* Tipografía - Redonda, lúdica, familiar */
+  --font-family: 'Fredoka', 'Varela Round', sans-serif;
   --font-size-xs: 0.75rem; /* 12px */
   --font-size-sm: 0.875rem; /* 14px */
   --font-size-base: 1rem; /* 16px */

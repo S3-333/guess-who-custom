@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { GuessWhoLogo } from './GuessWhoLogo'
-import '../assets/transition-code-svg.css' // ¡Crucial para los colores y animaciones!
+import '../../assets/transition-code-svg.css' // ¡Crucial para los colores y animaciones!
 import './Splash.css'
 
 export function Splash({ onDismiss }) {
