@@ -13,24 +13,10 @@
 import { Card } from '../Card/Card'
 import './CardGrid.css'
 
-export function CardGrid({ cards, onUpdate, onRemove }) {
-  // Si no hay cartas, mostramos un mensaje vacío
-  if (cards.length === 0) {
-    return (
-      <div className="card-grid__empty animate-fade-in">
-        <p>No hay cartas en el tablero.</p>
-        <p>Hacé click en <strong>"Agregar carta"</strong> para empezar.</p>
-      </div>
-    )
-  }
-
+export function CardGrid({ cards, onUpdate, onRemove, onAdd }) {
   return (
     <div className="card-grid">
-      {/*
-       * Usamos `key={card.id}` para que React identifique cada carta
-       * de forma única. Sin key, React puede confundir elementos al
-       * reordenar o eliminar, causando bugs visuales.
-       */}
+      {/* Listado de cartas existentes */}
       {cards.map(card => (
         <Card
           key={card.id}
@@ -39,6 +25,17 @@ export function CardGrid({ cards, onUpdate, onRemove }) {
           onRemove={onRemove}
         />
       ))}
+
+      {/* Botón especial para agregar nueva carta al final */}
+      <button 
+        className="card-grid__add-btn animate-pop-in"
+        onClick={onAdd}
+        title="Agregar nuevo personaje"
+        aria-label="Agregar nueva carta"
+      >
+        <div className="card-grid__add-icon">＋</div>
+        <span className="card-grid__add-text">Nuevo Personaje</span>
+      </button>
     </div>
   )
 }

@@ -21,28 +21,13 @@ import { fileToBase64, isValidImageFile } from '../../utils/helpers'
 import './Card.css'
 
 export function Card({ card, onUpdate, onRemove }) {
-  /**
-   * Estado local para el efecto visual de drag-over.
-   * Solo afecta la apariencia de esta carta, no necesita
-   * propagarse hacia arriba.
-   */
   const [isDragOver, setIsDragOver] = useState(false)
-
-  /**
-   * useRef: referencia al input[type="file"] oculto.
-   * Lo oculto visualmente y lo activo programáticamente
-   * para tener control total sobre el estilo del botón.
-   */
+  const [isRemoving, setIsRemoving] = useState(false)
   const fileInputRef = useRef(null)
 
-  /**
-   * Procesa un archivo de imagen: valida, convierte a Base64
-   * y actualiza la carta. Es async porque fileToBase64 devuelve
-   * una Promise.
-   */
   const handleImageFile = useCallback(async (file) => {
     if (!isValidImageFile(file)) {
-      alert('Solo se aceptan imágenes (JPG, PNG, GIF, WEBP, SVG)')
+      alert('Solo se aceptan imágenes (JPG, PNG, GIF, WEBP, SVG, AVIF)')
       return
     }
     try {
@@ -56,7 +41,7 @@ export function Card({ card, onUpdate, onRemove }) {
   // ─── Handlers de Drag & Drop ───────────────────────────────────
 
   const handleDragOver = useCallback((e) => {
-    e.preventDefault() // Necesario para habilitar el drop
+    e.preventDefault()
     setIsDragOver(true)
   }, [])
 
@@ -67,7 +52,7 @@ export function Card({ card, onUpdate, onRemove }) {
   const handleDrop = useCallback((e) => {
     e.preventDefault()
     setIsDragOver(false)
-    const file = e.dataTransfer.files[0] // Solo tomamos el primer archivo
+    const file = e.dataTransfer.files[0]
     if (file) handleImageFile(file)
   }, [handleImageFile])
 
@@ -76,8 +61,6 @@ export function Card({ card, onUpdate, onRemove }) {
   const handleFileChange = useCallback((e) => {
     const file = e.target.files[0]
     if (file) handleImageFile(file)
-    // Reseteamos el valor del input para poder seleccionar el mismo
-    // archivo dos veces seguidas si el usuario lo necesita
     e.target.value = ''
   }, [handleImageFile])
 
@@ -87,9 +70,21 @@ export function Card({ card, onUpdate, onRemove }) {
     onUpdate(card.id, { name: e.target.value })
   }, [card.id, onUpdate])
 
+  // ─── Handler para eliminar con animación ───
+  const handleRemove = () => {
+    setIsRemoving(true)
+    // El tiempo del timeout debe coincidir con la duración del CSS (0.3s)
+    setTimeout(() => {
+      onRemove(card.id)
+    }, 300)
+  }
+
   return (
     <article
-      className={`card-editor ${isDragOver ? 'card-editor--drag-over' : ''}`}
+      className={`card-editor 
+        ${isDragOver ? 'card-editor--drag-over' : ''} 
+        ${isRemoving ? 'card-editor--removing' : ''}
+      `}
       aria-label={`Carta: ${card.name || 'Sin nombre'}`}
     >
       {/* ─── Zona de imagen con drag & drop ─── */}
@@ -98,11 +93,11 @@ export function Card({ card, onUpdate, onRemove }) {
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        onClick={() => fileInputRef.current?.click()}
+        onClick={() => !isRemoving && fileInputRef.current?.click()}
         role="button"
         tabIndex={0}
         aria-label="Arrastrar imagen o hacer click para seleccionar"
-        onKeyDown={(e) => e.key === 'Enter' && fileInputRef.current?.click()}
+        onKeyDown={(e) => e.key === 'Enter' && !isRemoving && fileInputRef.current?.click()}
       >
         {card.image ? (
           <img
@@ -118,7 +113,6 @@ export function Card({ card, onUpdate, onRemove }) {
             </span>
           </div>
         )}
-        {/* Input file oculto — se activa con el click en la zona */}
         <input
           ref={fileInputRef}
           type="file"
@@ -138,13 +132,18 @@ export function Card({ card, onUpdate, onRemove }) {
           placeholder="Nombre del personaje"
           value={card.name}
           onChange={handleNameChange}
+          disabled={isRemoving}
           maxLength={30}
           aria-label="Nombre del personaje"
         />
         {/* ─── Botón eliminar ─── */}
         <button
           className="btn btn-danger btn-sm card-editor__remove-btn"
-          onClick={() => onRemove(card.id)}
+          onClick={(e) => {
+            e.stopPropagation()
+            handleRemove()
+          }}
+          disabled={isRemoving}
           aria-label={`Eliminar carta ${card.name || ''}`}
           title="Eliminar carta"
         >

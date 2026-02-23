@@ -5,17 +5,48 @@
   padding: 10px;
 }
 
-/* Estado vacío */
-.card-grid__empty {
-  text-align: center;
-  padding: 80px 40px;
-  background: var(--color-bg-dark);
-  border: var(--border-width) dashed rgba(255, 255, 255, 0.2);
+/* Botón de agregar con forma de carta */
+.card-grid__add-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1.55;
+  background: var(--color-accent);
+  border: var(--border-width) dashed rgba(255, 255, 255, 0.4);
   border-radius: var(--radius-lg);
-  color: var(--color-text-on-blue);
-  font-size: var(--font-size-lg);
+  cursor: pointer;
+  transition: var(--transition-pop);
+  box-shadow: 0 8px 0 var(--color-accent-dark);
+  color: #fff;
+  gap: 15px;
+  padding: 20px;
 }
 
-.card-grid__empty strong {
-  color: var(--color-yellow);
+.card-grid__add-btn:hover {
+  transform: translateY(-8px) scale(1.02);
+  background: #ff3e4d;
+  box-shadow: 0 12px 0 var(--color-accent-dark);
+  border-color: #fff;
+  border-style: solid;
+}
+
+.card-grid__add-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 4px 0 var(--color-accent-dark);
+}
+
+.card-grid__add-icon {
+  font-family: var(--font-family-display);
+  font-size: 5rem;
+  line-height: 1;
+  text-shadow: 4px 4px 0 var(--color-accent-dark);
+}
+
+.card-grid__add-text {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-base);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-shadow: 2px 2px 0 var(--color-accent-dark);
 }

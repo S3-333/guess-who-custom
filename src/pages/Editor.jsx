@@ -63,15 +63,8 @@ export function Editor({ board, onPlay }) {
 
       {/* ─── Barra de acciones ─── */}
       <div className="editor-page__toolbar">
-        {/* Acciones del tablero */}
+        {/* Acciones principales del tablero */}
         <div className="editor-page__toolbar-left">
-          <button
-            id="btn-add-card"
-            className="btn btn-primary"
-            onClick={addCard}
-          >
-            + Agregar carta
-          </button>
           <button
             id="btn-clear-board"
             className="btn btn-ghost"
@@ -89,7 +82,12 @@ export function Editor({ board, onPlay }) {
 
       {/* ─── Grid de cartas ─── */}
       <main className="editor-page__main">
-        <CardGrid cards={cards} onUpdate={updateCard} onRemove={removeCard} />
+        <CardGrid 
+          cards={cards} 
+          onUpdate={updateCard} 
+          onRemove={removeCard} 
+          onAdd={addCard}
+        />
       </main>
 
       {/* ─── Footer con botón de juego ─── */}

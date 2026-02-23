@@ -38,7 +38,7 @@ export function fileToBase64(file) {
  * @returns {boolean}
  */
 export function isValidImageFile(file) {
-  const accepted = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml']
+  const accepted = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml', 'image/jpg', 'image/avif']
   return file && accepted.includes(file.type)
 }
 
