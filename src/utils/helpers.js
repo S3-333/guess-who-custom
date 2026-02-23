@@ -43,57 +43,86 @@ export function isValidImageFile(file) {
 }
 
 /**
- * Descarga un objeto JavaScript como archivo .json.
- *
- * ⚠️ Decisión técnica importante:
- * El elemento <a> DEBE estar adjunto al DOM antes de llamar a .click().
- * Chrome en Windows ignora el click si el elemento no está en el árbol DOM.
- * Usamos `style.display='none'` para que no sea visible y `body.removeChild`
- * para limpiarlo inmediatamente después.
- *
- * Además, `URL.revokeObjectURL` va dentro de un setTimeout para asegurarnos
- * de que el navegador haya iniciado la descarga antes de liberar la URL.
- *
- * @param {Object} data - Datos a exportar
- * @param {string} filename - Nombre del archivo (sin extensión)
+ * downloadJSON – Guarda un objeto asincrónicamente. 
+ * Intenta usar showSaveFilePicker para permitir al usuario elegir la ruta.
  */
-export function downloadJSON(data, filename = 'tablero') {
-  const json = JSON.stringify(data, null, 2) // Formato legible con indentación
-  const blob = new Blob([json], { type: 'application/json' })
-  const url  = URL.createObjectURL(blob)
+export async function downloadJSON(data, filename = 'tablero') {
+  const json = JSON.stringify(data, null, 2);
 
-  const a = document.createElement('a')
-  a.href            = url
-  a.download        = `${filename}.json`
-  a.style.display   = 'none'
+  // Intentamos usar la API moderna de File System Access (Chrome/Edge)
+  if ('showSaveFilePicker' in window) {
+    try {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: `${filename}.json`,
+        types: [{
+          description: 'Tablero de Guess Who',
+          accept: { 'application/json': ['.json'] },
+        }],
+      });
+      const writable = await handle.createWritable();
+      await writable.write(json);
+      await writable.close();
+      return; // Éxito con la API moderna
+    } catch (err) {
+      if (err.name === 'AbortError') return; // El usuario canceló
+      console.error('Error usando SaveFilePicker:', err);
+      // Fallback al método tradicional si falla por otra razón
+    }
+  }
 
-  // ✅ Adjuntamos al DOM → Chrome/Windows puede procesar el click
-  document.body.appendChild(a)
-  a.click()
-  document.body.removeChild(a)
-
-  // ✅ Liberamos la URL después de que el navegador inicie la descarga
-  setTimeout(() => URL.revokeObjectURL(url), 150)
+  // MÉTODO FALLBACK (Tradicional): Descarga automática a "Descargas"
+  const blob = new Blob([json], { type: 'application/json' });
+  const url  = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${filename}.json`;
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 100);
 }
 
 /**
- * Lee un archivo .json y retorna el objeto parseado.
- * @param {File} file
- * @returns {Promise<Object>}
+ * readJSONFile – Abre un selector de archivos y lee el JSON.
+ * Ahora prefiere showOpenFilePicker para mayor control.
  */
+export async function readJSONFromUser() {
+  if ('showOpenFilePicker' in window) {
+    try {
+      const [handle] = await window.showOpenFilePicker({
+        types: [{
+          description: 'Archivo de Tablero (.json)',
+          accept: { 'application/json': ['.json'] },
+        }],
+        multiple: false
+      });
+      const file = await handle.getFile();
+      const text = await file.text();
+      return JSON.parse(text);
+    } catch (err) {
+      if (err.name === 'AbortError') return null;
+      console.error('Error con OpenFilePicker:', err);
+      throw err;
+    }
+  }
+  return null; // Si no hay API, devolvemos null para usar el input tradicional
+}
+
+/** Lógica antigua de lectura para compatibilidad (usada si el input tradicional se activa) */
 export function readJSONFile(file) {
   return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload  = (e) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
       try {
-        resolve(JSON.parse(e.target.result))
+        resolve(JSON.parse(e.target.result));
       } catch {
-        reject(new Error('El archivo no es un JSON válido'))
+        reject(new Error('El archivo no es un JSON válido'));
       }
-    }
-    reader.onerror = () => reject(new Error('Error al leer el archivo'))
-    reader.readAsText(file)
-  })
+    };
+    reader.onerror = () => reject(new Error('Error al leer el archivo'));
+    reader.readAsText(file);
+  });
 }
 
 /**

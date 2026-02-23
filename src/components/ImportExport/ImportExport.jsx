@@ -14,22 +14,31 @@
  * - onImport  {Function} Se llama con las cartas importadas
  */
 import { useRef } from 'react'
-import { downloadJSON, readJSONFile } from '../../utils/helpers'
+import { downloadJSON, readJSONFromUser, readJSONFile } from '../../utils/helpers'
 import './ImportExport.css'
 
-/** Versión del formato de archivo para compatibilidad futura */
 const FILE_VERSION = '1.0'
 
 export function ImportExport({ cards, onImport }) {
-  /**
-   * useRef al input de archivo oculto, igual que en Card.jsx.
-   * Esta es la técnica estándar en React para interactuar con
-   * elementos del DOM que necesitan ser activados programáticamente.
-   */
   const fileInputRef = useRef(null)
 
+  /** Procesa el contenido del tablero una vez obtenido */
+  const processImport = (data) => {
+    if (!data.cards || !Array.isArray(data.cards)) {
+      alert('El archivo no tiene el formato correcto de tablero.')
+      return
+    }
+
+    const confirm = window.confirm(
+      `¿Importar tablero con ${data.cards.length} cartas? Esto reemplazará el tablero actual.`
+    )
+    if (!confirm) return
+
+    onImport(data.cards)
+  }
+
   // ─── Exportar ─────────────────────────────────────────────────
-  const handleExport = () => {
+  const handleExport = async () => {
     if (cards.length === 0) {
       alert('No hay cartas para exportar.')
       return
@@ -37,34 +46,40 @@ export function ImportExport({ cards, onImport }) {
     const exportData = {
       version: FILE_VERSION,
       exportedAt: new Date().toISOString(),
-      cards, // Las imágenes ya están en base64 dentro de cada carta
+      cards,
     }
-    downloadJSON(exportData, `tablero_guess_who_${Date.now()}`)
+    // downloadJSON ahora maneja el diálogo de "Guardar como" si el navegador lo soporta
+    await downloadJSON(exportData, `tablero_guess_who_${Date.now()}`)
   }
 
   // ─── Importar ─────────────────────────────────────────────────
-  const handleImport = async (e) => {
+  const handleImport = async () => {
+    try {
+      // Intentamos usar la API moderna (abre diálogo de archivo nativo)
+      const data = await readJSONFromUser();
+      
+      if (data) {
+        processImport(data);
+      } else {
+        // Si no hay API (Safari/Firefox antiguos), activamos el input oculto
+        fileInputRef.current?.click();
+      }
+    } catch (err) {
+      alert(`Error al importar: ${err.message}`);
+    }
+  }
+
+  /** Handler para el input tradicional (Fallback) */
+  const handleFileChangeFallback = async (e) => {
     const file = e.target.files[0]
     if (!file) return
-    e.target.value = '' // Reset para permitir reimportar el mismo archivo
+    e.target.value = ''
 
     try {
       const data = await readJSONFile(file)
-
-      // Validamos que el archivo tenga el formato correcto
-      if (!data.cards || !Array.isArray(data.cards)) {
-        alert('El archivo no tiene el formato correcto de tablero.')
-        return
-      }
-
-      const confirm = window.confirm(
-        `¿Importar tablero con ${data.cards.length} cartas? Esto reemplazará el tablero actual.`
-      )
-      if (!confirm) return
-
-      onImport(data.cards)
+      processImport(data)
     } catch (err) {
-      alert(`Error al importar: ${err.message}`)
+      alert(`Error al leer archivo: ${err.message}`)
     }
   }
 
@@ -74,27 +89,27 @@ export function ImportExport({ cards, onImport }) {
         id="btn-export"
         className="btn btn-secondary"
         onClick={handleExport}
-        title="Guardar tablero como archivo JSON"
+        title="Guardar tablero en tu computadora"
       >
-        📤 Exportar tablero
+        💾 Guardar Tablero
       </button>
 
       <button
         id="btn-import"
         className="btn btn-secondary"
-        onClick={() => fileInputRef.current?.click()}
-        title="Cargar tablero desde archivo JSON"
+        onClick={handleImport}
+        title="Cargar un tablero guardado"
       >
-        📥 Importar tablero
+        📂 Cargar Tablero
       </button>
 
-      {/* Input oculto para seleccionar archivo JSON */}
+      {/* Input oculto (Fallback para navegadores sin File System Access API) */}
       <input
         ref={fileInputRef}
         type="file"
         accept=".json"
         style={{ display: 'none' }}
-        onChange={handleImport}
+        onChange={handleFileChangeFallback}
         aria-hidden="true"
       />
     </div>

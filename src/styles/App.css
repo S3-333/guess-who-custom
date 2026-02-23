@@ -21,14 +21,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 80px;
-  background: #065094;
-  background: radial-gradient(circle at center, #408ECC 0%, #065094 80%, #0D3861 100%);
-  border-bottom: 4px solid #0D3861;
+  height: 100px;
+  background: radial-gradient(circle at center, var(--color-bg-light) 0%, var(--color-bg) 80%, var(--color-bg-dark) 100%);
+  border-bottom: 6px solid var(--color-bg-dark);
   position: sticky;
   top: 0;
-  z-index: 50;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  z-index: 200;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
 }
 
 .app-nav__logo-wrapper {

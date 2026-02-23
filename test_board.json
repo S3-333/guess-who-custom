@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "exportedAt": "2026-02-22T18:00:00.000Z",
+  "cards": [
+    {
+      "id": "test-1",
+      "name": "Personaje de Prueba 1",
+      "image": null
+    },
+    {
+      "id": "test-2",
+      "name": "Personaje de Prueba 2",
+      "image": null
+    }
+  ]
+}

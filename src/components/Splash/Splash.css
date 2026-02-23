@@ -54,7 +54,7 @@
 
 .splash-screen__logo-container {
   width: 90vw;
-  max-width: 900px;
+  max-width: 1200px;
 }
 
 .splash-screen__logo-svg {
@@ -81,16 +81,20 @@
 /* El CSS del usuario ya controla el fill desde transparent a rgb(211, 33, 47) que es #D3212F */
 
 .splash-screen__hint {
-  color: #fff;
-  font-family: 'Fredoka', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-family: var(--font-family-display);
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.5s ease, transform 0.5s ease;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-  color: #E5907C;
-  cursor: pointer;
+  background: var(--color-peach);
+  color: var(--color-bg-dark); /* Texto oscuro sobre melocotón para contraste perfecto */
+  padding: 12px 30px;
+  border-radius: var(--radius-full);
+  border: 3px solid var(--color-bg-dark);
+  box-shadow: 0 4px 0 var(--color-bg-dark);
   text-align: center;
 }
 

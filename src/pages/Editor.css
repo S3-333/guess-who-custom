@@ -1,94 +1,101 @@
 /**
- * Editor.css – Estilos de la página del editor.
+ * Editor.css – Diseño "Chunky" para el Editor de Tablero.
  */
 
 .editor-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
-  padding: var(--space-6);
-  max-width: 1400px;
+  gap: var(--space-8);
+  padding: 40px 20px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
 /* ─── Header ─────────────────────────────────────────────────── */
 .editor-page__header {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-4);
-  flex-wrap: wrap;
-  padding-bottom: var(--space-6);
-  border-bottom: 1px solid var(--color-border);
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  animation: slideDown 0.5s ease;
+  padding-bottom: 30px;
 }
 
 .editor-page__title {
-  font-size: var(--font-size-3xl);
+  font-size: var(--font-size-2xl);
   font-weight: 800;
-  color: var(--color-text);
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  margin-bottom: var(--space-1);
-}
-
-.editor-page__title-icon {
-  font-size: 2rem;
+  color: var(--color-yellow);
+  text-shadow: 2px 2px 0 var(--color-bg-dark);
 }
 
 .editor-page__subtitle {
-  color: var(--color-text-muted);
+  color: var(--color-text-on-blue);
   font-size: var(--font-size-base);
+  font-weight: 500;
 }
 
-/* ─── Toolbar ────────────────────────────────────────────────── */
+/* ─── Barra de herramientas ───────────────────────────────────── */
 .editor-page__toolbar {
+  background: var(--color-bg-dark);
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  border: var(--border-width) solid var(--color-peach);
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-4);
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  box-shadow: var(--shadow-soft);
 }
 
 .editor-page__toolbar-left,
 .editor-page__toolbar-right {
   display: flex;
+  gap: 12px;
   align-items: center;
-  gap: var(--space-2);
-  flex-wrap: wrap;
 }
 
-/* ─── Main (area del grid) ───────────────────────────────────── */
+/* ─── Main ─────────────────────────────────────────────────── */
 .editor-page__main {
   flex: 1;
-  /* Fondo sutil para distinguir el área del grid */
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: var(--space-4);
-  min-height: 300px;
 }
 
-/* ─── Footer ─────────────────────────────────────────────────── */
+/* ─── Footer ───────────────────────────────────────────────── */
 .editor-page__footer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-3);
-  padding-top: var(--space-6);
-  border-top: 1px solid var(--color-border);
+  gap: 16px;
+  padding: 40px 0;
+  margin-top: 40px;
+  border-top: var(--border-width) dashed rgba(255, 255, 255, 0.2);
 }
 
 .editor-page__play-btn {
-  min-width: 200px;
-  justify-content: center;
-  font-size: var(--font-size-xl);
-  padding: var(--space-4) var(--space-10);
-  box-shadow: var(--shadow-accent);
+  font-size: 1.8rem !important;
+  padding: 20px 60px !important;
+  border-radius: var(--radius-full) !important;
+  animation: pulsePrimary 2s infinite;
+}
+
+@keyframes pulsePrimary {
+  0% { transform: scale(1); box-shadow: 0 4px 0 var(--color-accent-dark); }
+  50% { transform: scale(1.05); box-shadow: 0 8px 20px rgba(211, 33, 47, 0.4); }
+  100% { transform: scale(1); box-shadow: 0 4px 0 var(--color-accent-dark); }
 }
 
 .editor-page__footer-hint {
-  font-size: var(--font-size-xs);
-  color: var(--color-text-faint);
+  color: var(--color-peach); /* Alto contraste sobre azul */
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  background: var(--color-bg-dark);
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
 }

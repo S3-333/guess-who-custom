@@ -1,13 +1,9 @@
 /**
- * global.css – Sistema de diseño global de la aplicación.
- *
- * Aquí definimos los "design tokens" (variables CSS) que dan
- * consistencia visual a toda la app: colores, tipografía,
- * sombras y espaciado.
- *
- * Usar variables CSS (--nombre) es una práctica profesional que
- * permite cambiar el tema completo modificando un solo lugar.
+ * global.css – Sistema de diseño "Chunky & Playful".
+ * Optimizado para niños y accesibilidad, respetando la paleta Splash.
  */
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
 
 /* ─── Reset y box-sizing ─────────────────────────────────────── */
 *,
@@ -20,73 +16,58 @@
 
 /* ─── Design Tokens (variables CSS) ─────────────────────────── */
 :root {
-  /* Paleta principal: Los colores de la imagen de referencia */
+  /* Paleta Splash (Blues) */
   --color-bg: #065094;
   --color-bg-light: #408ECC;
   --color-bg-dark: #0D3861;
+  
+  /* Superficies */
   --color-surface: #ffffff;
-  --color-surface-2: #f4f7f8;
+  --color-surface-soft: #f0f4f8;
   --color-border: #0D3861;
 
-  /* Acento rojo — el color del logo */
-  --color-accent: #D3212F;
-  --color-accent-dark: #b01524;
-  --color-accent-glow: rgba(211, 33, 47, 0.25);
-
-  /* Acento peach — para hints o detalles secundarios */
-  --color-peach: #E5907C;
+  /* Acentos */
+  --color-accent: #D3212F;       /* Rojo Logo */
+  --color-accent-dark: #A3111F;  /* Rojo Sombra */
+  --color-peach: #E5907C;        /* Acento suave */
+  --color-yellow: #FFC107;       /* Amarillo lúdico */
 
   /* Colores semánticos */
-  --color-success: #4CAF50;
-  --color-danger: #D3212F;
-  --color-warning: #FFC107;
-  --color-info: #408ECC;
+  --color-success: #2ECC71;
+  --color-danger: #E74C3C;
+  --color-warning: #F1C40F;
+  --color-info: #3498DB;
 
-  /* Texto */
-  --color-text: #ffffff; /* Casi todo el texto sobre el azul será blanco ahora */
-  --color-text-dark: #1a1b26;
-  --color-text-muted: #bbccdd;
-  --color-text-faint: #8b949e;
+  /* Texto - Contrasts */
+  --color-text-on-blue: #ffffff;
+  --color-text-on-white: #065094;
+  --color-text-muted: #D1D9E6;
+  --color-text-placeholder: #7B8CA4;
 
-  /* Tipografía - Redonda, lúdica, familiar */
-  --font-family: 'Fredoka', 'Varela Round', sans-serif;
-  --font-size-xs: 0.75rem; /* 12px */
-  --font-size-sm: 0.875rem; /* 14px */
-  --font-size-base: 1rem; /* 16px */
-  --font-size-lg: 1.125rem; /* 18px */
-  --font-size-xl: 1.25rem; /* 20px */
-  --font-size-2xl: 1.5rem; /* 24px */
-  --font-size-3xl: 1.875rem; /* 30px */
-  --font-size-4xl: 2.25rem; /* 36px */
+  /* Tipografía */
+  --font-family: 'Fredoka', sans-serif;
+  --font-family-display: 'Knewave', system-ui;
+  --font-size-xs: 0.85rem;   /* 14px */
+  --font-size-sm: 1rem;      /* 16px */
+  --font-size-base: 1.15rem; /* ~18px */
+  --font-size-lg: 1.3rem;    /* ~21px */
+  --font-size-xl: 1.5rem;    /* 24px */
+  --font-size-2xl: 2.5rem;   /* Aumentado para Knewave */
 
-  /* Espaciado */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-10: 2.5rem;
-  --space-12: 3rem;
-
-  /* Bordes */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
-  --radius-2xl: 1.5rem;
+  /* Bordes y Sombras "Chunky" */
+  --border-width: 3px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
   --radius-full: 9999px;
 
-  /* Sombras */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
-  --shadow-accent: 0 0 20px var(--color-accent-glow);
-
+  /* Efecto 3D de plástico para botones y cards */
+  --shadow-chunky: 0 4px 0 var(--color-bg-dark);
+  --shadow-chunky-accent: 0 4px 0 var(--color-accent-dark);
+  --shadow-soft: 0 8px 16px rgba(0, 0, 0, 0.15);
+  
   /* Transiciones */
-  --transition-fast: 150ms ease;
-  --transition-normal: 250ms ease;
-  --transition-slow: 400ms ease;
+  --transition-pop: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 /* ─── Base ───────────────────────────────────────────────────── */
@@ -98,224 +79,145 @@ html {
 body {
   font-family: var(--font-family);
   background-color: var(--color-bg);
-  color: var(--color-text);
+  background-image: radial-gradient(circle at center, var(--color-bg-light) 0%, var(--color-bg) 70%);
+  color: var(--color-text-on-blue);
   min-height: 100vh;
-  line-height: 1.6;
+  line-height: 1.4;
   -webkit-font-smoothing: antialiased;
 }
 
-/* ─── Scrollbar personalizado ────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-display);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ─── Scrollbar amigable ─────────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--color-surface);
+  background: var(--color-bg-dark);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
+  background: var(--color-peach);
   border-radius: var(--radius-full);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-muted);
+  border: 2px solid var(--color-bg-dark);
 }
 
-/* ─── Utilidades de layout ───────────────────────────────────── */
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 var(--space-6);
-}
-
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.flex-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* ─── Botones base ───────────────────────────────────────────── */
+/* ─── Botones "Chunky" ────────────────────────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
+  padding: 12px 24px;
   border-radius: var(--radius-md);
-  border: 1px solid transparent;
-  font-family: var(--font-family);
-  font-size: var(--font-size-sm);
-  font-weight: 600;
+  border: var(--border-width) solid var(--color-border);
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-base);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition:
-    background-color var(--transition-fast),
-    border-color var(--transition-fast),
-    box-shadow var(--transition-fast),
-    transform var(--transition-fast);
+  background: var(--color-surface);
+  color: var(--color-text-on-white);
+  box-shadow: var(--shadow-chunky);
+  transition: var(--transition-pop);
   text-decoration: none;
-  white-space: nowrap;
   user-select: none;
+  position: relative;
+  top: 0;
 }
 
-.btn:active {
-  transform: scale(0.97);
+.btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--color-bg-dark);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--color-bg-dark);
 }
 
 .btn-primary {
   background: var(--color-accent);
-  color: #000;
-  border-color: var(--color-accent-dark);
+  color: #fff;
+  border-color: var(--color-bg-dark);
+  box-shadow: 0 4px 0 var(--color-accent-dark);
 }
-.btn-primary:hover {
-  background: var(--color-accent-dark);
-  box-shadow: var(--shadow-accent);
+
+.btn-primary:hover:not(:disabled) {
+  background: #ff3e4d;
+  box-shadow: 0 6px 0 var(--color-accent-dark);
+}
+
+.btn-primary:active:not(:disabled) {
+  box-shadow: 0 1px 0 var(--color-accent-dark);
 }
 
 .btn-secondary {
-  background: var(--color-surface-2);
-  color: var(--color-text);
-  border-color: var(--color-border);
-}
-.btn-secondary:hover {
-  background: var(--color-border);
-  border-color: var(--color-text-muted);
-}
-
-.btn-danger {
-  background: transparent;
-  color: var(--color-danger);
-  border-color: var(--color-danger);
-}
-.btn-danger:hover {
-  background: var(--color-danger);
-  color: #fff;
-}
-
-.btn-ghost {
-  background: transparent;
-  color: var(--color-text-muted);
-  border-color: transparent;
-}
-.btn-ghost:hover {
-  color: var(--color-text);
-  background: var(--color-surface-2);
-}
-
-.btn-lg {
-  padding: var(--space-3) var(--space-8);
-  font-size: var(--font-size-lg);
-  border-radius: var(--radius-lg);
-}
-
-.btn-sm {
-  padding: var(--space-1) var(--space-3);
-  font-size: var(--font-size-xs);
+  background: var(--color-yellow);
+  color: #000;
+  border-color: var(--color-bg-dark);
+  box-shadow: 0 4px 0 #c79100;
 }
 
 .btn:disabled {
-  opacity: 0.4;
+  opacity: 0.6;
+  filter: grayscale(0.5);
   cursor: not-allowed;
-  transform: none;
+  transform: none !important;
+  box-shadow: none !important;
+  top: 2px;
 }
 
-/* ─── Inputs base ────────────────────────────────────────────── */
-.input {
-  width: 100%;
-  padding: var(--space-2) var(--space-3);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  color: var(--color-text);
-  font-family: var(--font-family);
-  font-size: var(--font-size-sm);
-  transition:
-    border-color var(--transition-fast),
-    box-shadow var(--transition-fast);
-  outline: none;
-}
-.input:focus {
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px var(--color-accent-glow);
-}
-.input::placeholder {
-  color: var(--color-text-faint);
-}
-
-/* ─── Badge ──────────────────────────────────────────────────── */
+/* ─── Etiquetas y Badges ──────────────────────────────────────── */
 .badge {
   display: inline-block;
-  padding: 2px var(--space-2);
+  padding: 6px 16px;
+  background: var(--color-bg-dark);
+  color: #fff;
   border-radius: var(--radius-full);
+  font-family: var(--font-family-display);
   font-size: var(--font-size-xs);
-  font-weight: 700;
-  background: var(--color-surface-2);
-  color: var(--color-text-muted);
-  border: 1px solid var(--color-border);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* ─── Animaciones globales ───────────────────────────────────── */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ─── Inputs Lúdicos ─────────────────────────────────────────── */
+.input {
+  width: 100%;
+  padding: 14px 20px;
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-on-white);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  outline: none;
+  transition: var(--transition-pop);
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.input:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(211, 33, 47, 0.2);
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
+.input::placeholder {
+  color: var(--color-text-placeholder);
+  font-weight: 400;
 }
 
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
+/* ─── Utilidades ─────────────────────────────────────────────── */
+.animate-pop-in {
+  animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 }
 
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.35s ease both;
-}
-.animate-slide-up {
-  animation: slideUp 0.4s ease both;
-}
-.animate-scale-in {
-  animation: scaleIn 0.3s ease both;
+@keyframes popIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }

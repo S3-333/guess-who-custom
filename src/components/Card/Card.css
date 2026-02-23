@@ -1,116 +1,125 @@
-/**
- * Card.css – Estilos del componente Card en el Editor.
- *
- * Cada componente tiene su propio archivo CSS colocalizado.
- * Esto facilita encontrar y modificar los estilos de un componente
- * sin buscar en un archivo CSS gigante.
- */
-
-/* ─── Contenedor de la carta ─────────────────────────────────── */
 .card-editor {
   display: flex;
   flex-direction: column;
   background: var(--color-surface);
-  border: 2px solid var(--color-border);
-  border-radius: var(--radius-xl);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  transition:
-    border-color var(--transition-normal),
-    box-shadow var(--transition-normal),
-    transform var(--transition-normal);
-  animation: scaleIn 0.25s ease both;
+  transition: var(--transition-pop);
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  box-shadow: var(--shadow-chunky);
+  position: relative;
 }
 
 .card-editor:hover {
-  border-color: var(--color-text-muted);
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
+  transform: translateY(-5px) rotate(1deg);
+  box-shadow: 0 10px 0 var(--color-bg-dark);
 }
 
-/* Estado visual cuando el usuario arrastra una imagen sobre la carta */
+/* Estado visual cuando el usuario arrastra una imagen */
 .card-editor--drag-over {
   border-color: var(--color-accent);
-  box-shadow: var(--shadow-accent), var(--shadow-lg);
-  transform: scale(1.02);
+  box-shadow: 0 8px 0 var(--color-accent-dark);
+  transform: scale(1.05) !important;
 }
 
-/* ─── Zona de imagen (donde se arrastra la foto) ─────────────── */
+/* ─── Zona de imagen ─────────────────────────────────────────── */
 .card-editor__image-zone {
   position: relative;
-  aspect-ratio: 3 / 4;       /* Proporción tipo carta de juego */
+  aspect-ratio: 3 / 4;
   cursor: pointer;
   overflow: hidden;
-  background: var(--color-surface-2);
-}
-
-.card-editor__image-zone:hover .card-editor__image {
-  transform: scale(1.04);
+  background: var(--color-surface-soft);
+  border-bottom: var(--border-width) solid var(--color-border);
 }
 
 .card-editor__image {
   width: 100%;
   height: 100%;
-  object-fit: cover;          /* Cubre toda la zona sin deformar */
-  transition: transform var(--transition-slow);
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.2, 0, 0.2, 1);
 }
 
-/* ─── Placeholder cuando no hay imagen ──────────────────────── */
+.card-editor__image-zone:hover .card-editor__image {
+  transform: scale(1.1);
+}
+
+/* ─── Placeholder ───────────────────────────────────────────── */
 .card-editor__placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
-  gap: var(--space-2);
-  padding: var(--space-4);
-  color: var(--color-text-faint);
+  gap: 12px;
+  padding: 20px;
+  color: var(--color-bg-dark); /* Color oscuro para legibilidad sobre superficie clara */
   text-align: center;
-  transition: color var(--transition-fast);
-}
-
-.card-editor__image-zone:hover .card-editor__placeholder {
-  color: var(--color-text-muted);
 }
 
 .card-editor__placeholder-icon {
-  font-size: 2.5rem;
-  filter: grayscale(1);
-  opacity: 0.5;
-}
-
-.card-editor__placeholder-text {
-  font-size: var(--font-size-xs);
-  font-weight: 500;
-  line-height: 1.4;
-}
-
-/* ─── Footer con nombre e icono de eliminar ──────────────────── */
-.card-editor__footer {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-3);
-  background: var(--color-surface);
-  border-top: 1px solid var(--color-border);
-}
-
-.card-editor__name-input {
-  /* Sobrescribimos el ancho del input global para que sea flex */
-  width: auto;
-  flex: 1;
-  min-width: 0;             /* Permite que el input se encoja en flex */
-  font-size: var(--font-size-xs);
-  padding: var(--space-1) var(--space-2);
-}
-
-.card-editor__remove-btn {
-  flex-shrink: 0;
-  width: 28px;
-  height: 28px;
-  padding: 0;
+  font-size: 3rem;
+  background: var(--color-surface-soft);
+  width: 70px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-md);
-  font-size: 0.7rem;
+  border-radius: var(--radius-full);
+  border: 2px dashed var(--color-border);
+  transition: var(--transition-pop);
+}
+
+.card-editor__image-zone:hover .card-editor__placeholder-icon {
+  transform: scale(1.2) rotate(10deg);
+  background: var(--color-yellow);
+  border-style: solid;
+}
+
+.card-editor__placeholder-text {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: inherit;
+}
+
+/* ─── Footer con nombre e eliminar ───────────────────────────── */
+.card-editor__footer {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  gap: 12px;
+  background: var(--color-surface);
+}
+
+.card-editor__name-input {
+  width: 100% !important;
+  font-size: var(--font-size-sm) !important;
+  padding: 10px 15px !important;
+  text-align: center;
+}
+
+.card-editor__remove-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  color: white;
+  border: 2px solid var(--color-bg-dark);
+  box-shadow: 0 3px 0 var(--color-accent-dark);
+  font-size: 1.2rem;
+  z-index: 10;
+  transition: var(--transition-pop);
+}
+
+.card-editor__remove-btn:hover {
+  transform: scale(1.2) rotate(90deg);
+  background: #ff3e4d;
+}
+
+.card-editor__remove-btn:active {
+  transform: scale(0.9);
 }

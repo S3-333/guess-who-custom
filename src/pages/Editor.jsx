@@ -56,7 +56,7 @@ export function Editor({ board, onPlay }) {
         {/* Contador de cartas */}
         <div className="editor-page__stats">
           <span className="badge">
-            {cards.length} {cards.length === 1 ? 'carta' : 'cartas'}
+            {cards.length === 1 ? 'Solo tienes una carta' : 'Tienes ' + cards.length + ' cartas'}
           </span>
         </div>
       </header>
@@ -99,8 +99,9 @@ export function Editor({ board, onPlay }) {
           className="btn btn-primary btn-lg editor-page__play-btn"
           onClick={handlePlay}
           disabled={cards.length < 2}
+          title={cards.length < 2 ? "Necesitás al menos 2 cartas para jugar" : "¡Empezar partida!"}
         >
-          ▶ ¡Jugar!
+          {cards.length < 2 ? 'Faltan Cartas' : '▶ ¡Jugar!'}
         </button>
         <p className="editor-page__footer-hint">
           El tablero se guarda automáticamente en tu dispositivo

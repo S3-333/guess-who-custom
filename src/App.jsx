@@ -22,7 +22,6 @@ import { useGame } from './hooks/useGame'
 import { Editor } from './pages/Editor'
 import { Game } from './pages/Game'
 import { Splash } from './components/Splash/Splash'
-import { GuessWhoLogo } from './components/Splash/GuessWhoLogo'
 import logoPng from './assets/ghuess-who-logo.png'
 import './styles/App.css'
 
