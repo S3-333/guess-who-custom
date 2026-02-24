@@ -87,7 +87,7 @@
 }
 
 .editor-page__footer-hint {
-  color: var(--color-peach); /* Alto contraste sobre azul */
+  color: var(--color-yellow); /* Alto contraste sobre azul */
   font-size: var(--font-size-sm);
   font-weight: 600;
   background: var(--color-bg-dark);

@@ -45,7 +45,6 @@ export function Editor({ board, onPlay }) {
       <header className="editor-page__header">
         <div className="editor-page__header-left">
           <h1 className="editor-page__title">
-            <span className="editor-page__title-icon">🎭</span>
             Editor de Tablero
           </h1>
           <p className="editor-page__subtitle">

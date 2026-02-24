@@ -53,8 +53,8 @@
 }
 
 .splash-screen__logo-container {
-  width: 90vw;
-  max-width: 1200px;
+  width: 60vw;
+  max-width: 700px;
 }
 
 .splash-screen__logo-svg {
@@ -71,14 +71,10 @@
 }
 
 .splash-screen__logo-svg path {
-  /* Borde grueso blanco interno simulando el sticker clásico */
-  stroke: #ffffff;
-  stroke-width: 12px;
-  stroke-linejoin: round;
-  /* Inicialmente no pinta en red sino con la transición de transition-code-svg.css */
+  stroke: none;
 }
 
-/* El CSS del usuario ya controla el fill desde transparent a rgb(211, 33, 47) que es #D3212F */
+/* El CSS del usuario ya controla el fill desde transparent a rgb(0, 0, 0) */
 
 .splash-screen__hint {
   font-family: var(--font-family-display);
@@ -89,7 +85,7 @@
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.5s ease, transform 0.5s ease;
-  background: var(--color-peach);
+  background: var(--color-yellow);
   color: var(--color-bg-dark); /* Texto oscuro sobre melocotón para contraste perfecto */
   padding: 12px 30px;
   border-radius: var(--radius-full);
@@ -102,7 +98,7 @@
   opacity: 1;
   transform: translateY(0);
   /* Damos un pequeño delay extra para que se vea después de que el logo se pinte un poco */
-  transition-delay: 3.5s; 
+  transition-delay: 4s; 
 }
 
 @keyframes splashExitUp {

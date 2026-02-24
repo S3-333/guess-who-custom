@@ -53,6 +53,7 @@ export function Game({ cards, game, actions, onBack }) {
     )
   }
 
+
   // ─── SELECCIÓN DE PERSONAJE – JUGADOR 2 ───────────────────────
   if (game.phase === PHASES.P2_SELECT) {
     return (
@@ -61,6 +62,19 @@ export function Game({ cards, game, actions, onBack }) {
         playerName={game.p2Name}
         playerNum={2}
         onSelect={actions.p2SelectSecret}
+      />
+    )
+  }
+
+  // ─── PANTALLA DE BLOQUEO POST-SELECCIÓN P2 ─────────────────────
+  if (game.phase === PHASES.P2_LOCK) {
+    return (
+      <TurnScreen
+        playerName={game.p1Name}
+        playerNum={1}
+        message={`${game.p2Name} ya eligió. ¡Todo listo para empezar, ${game.p1Name}!`}
+        onContinue={actions.proceedToPlaying}
+        variant="lock"
       />
     )
   }
@@ -356,26 +370,22 @@ function GameFinished({ winnerName, winnerNum, secretCard, onRestart, onBack }) 
           <div className="game-finished__secret">
             <p className="game-finished__secret-label">El personaje era:</p>
             <div className="game-finished__secret-card">
-              {secretCard.image && (
-                <img
-                  src={secretCard.image}
-                  alt={secretCard.name}
-                  className="game-finished__secret-img"
-                />
-              )}
-              <span className="game-finished__secret-name">{secretCard.name}</span>
+              <div className="game-finished__secret-img-wrapper">
+                {secretCard.image ? (
+                  <img
+                    src={secretCard.image}
+                    alt={secretCard.name}
+                  />
+                ) : (
+                  <div className="game-card__no-image">🖼️</div>
+                )}
+              </div>
+              <div className="game-finished__secret-name">{secretCard.name}</div>
             </div>
           </div>
         )}
 
         <div className="game-finished__actions">
-          <button
-            id="btn-play-again"
-            className="btn btn-primary btn-lg"
-            onClick={onRestart}
-          >
-            🔄 Jugar de nuevo
-          </button>
           <button
             className="btn btn-secondary"
             onClick={onBack}

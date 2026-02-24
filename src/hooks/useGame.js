@@ -31,6 +31,7 @@ export const PHASES = {
   P1_SELECT:   'p1_select',
   P1_LOCK:     'p1_lock',
   P2_SELECT:   'p2_select',
+  P2_LOCK:     'p2_lock',
   PLAYING:     'playing',
   TURN_SWITCH: 'turn_switch',
   FINISHED:    'finished',
@@ -96,9 +97,14 @@ export function useGame(cards) {
     update({ phase: PHASES.P2_SELECT })
   }, [update])
 
-  /** Jugador 2 confirma su personaje secreto → empieza el juego */
+  /** Jugador 2 confirma su personaje secreto → pantalla de bloqueo previa al inicio */
   const p2SelectSecret = useCallback((cardId) => {
-    update({ p2Secret: cardId, phase: PHASES.PLAYING, currentTurn: 1 })
+    update({ p2Secret: cardId, phase: PHASES.P2_LOCK })
+  }, [update])
+
+  /** Empieza el juego oficialmente (después del segundo lock) */
+  const proceedToPlaying = useCallback(() => {
+    update({ phase: PHASES.PLAYING, currentTurn: 1 })
   }, [update])
 
   /**
@@ -178,6 +184,7 @@ export function useGame(cards) {
     p1SelectSecret,
     proceedToP2Select,
     p2SelectSecret,
+    proceedToPlaying,
     discardCard,
     guessCharacter,
     confirmTurnSwitch,

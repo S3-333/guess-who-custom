@@ -39,8 +39,8 @@ export function TurnScreen({ playerName, playerNum, message, onContinue, variant
         {/* Instrucción */}
         <p className="turn-screen__subtitle">
           {variant === 'lock'
-            ? 'Dale el dispositivo al otro jugador para que elija su personaje.'
-            : 'Cuando estés listo, presioná el botón para ver tu tablero.'}
+            ? 'Dale el dispositivo al otro jugador'
+            : 'Cuando estés listo, presioná el botón para ver tu tablero'}
         </p>
 
         {/* Separador visual */}

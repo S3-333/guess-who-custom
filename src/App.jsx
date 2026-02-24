@@ -22,7 +22,7 @@ import { useGame } from './hooks/useGame'
 import { Editor } from './pages/Editor'
 import { Game } from './pages/Game'
 import { Splash } from './components/Splash/Splash'
-import logoPng from './assets/ghuess-who-logo.png'
+import logo from './assets/adivina_quien.webp'
 import './styles/App.css'
 
 /**
@@ -60,6 +60,7 @@ function App() {
     p1SelectSecret,
     proceedToP2Select,
     p2SelectSecret,
+    proceedToPlaying,
     discardCard,
     guessCharacter,
     confirmTurnSwitch,
@@ -71,6 +72,7 @@ function App() {
     p1SelectSecret,
     proceedToP2Select,
     p2SelectSecret,
+    proceedToPlaying,
     discardCard,
     guessCharacter,
     confirmTurnSwitch,
@@ -96,7 +98,7 @@ function App() {
         {/* Navegación rediseñada: Logo PNG central clickeable */}
         <nav className="app-nav" aria-label="Branding principal">
           <div className="app-nav__logo-wrapper" onClick={handleGoToEditor} style={{ cursor: 'pointer' }}>
-             <img src={logoPng} alt="Guess Who Logo" className="app-nav__logo-png" />
+             <img src={logo} alt="Guess Who Logo" className="app-nav__logo-png" />
           </div>
         </nav>
 
