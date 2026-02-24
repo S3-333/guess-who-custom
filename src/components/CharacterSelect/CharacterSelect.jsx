@@ -14,6 +14,9 @@
 import { useState } from 'react'
 import './CharacterSelect.css'
 
+// Iconos
+import rightArrowIcon from '../../assets/icons/right_arrow.webp'
+
 export function CharacterSelect({ cards, playerName, playerNum, onSelect }) {
   /**
    * Estado local para la carta seleccionada (antes de confirmar).
@@ -85,7 +88,7 @@ export function CharacterSelect({ cards, playerName, playerNum, onSelect }) {
           onClick={handleConfirm}
           disabled={!selectedId}
         >
-          Confirmar personaje →
+          Confirmar personaje <img src={rightArrowIcon} alt="" className="btn-icon icon--white" style={{ marginLeft: '10px', marginRight: 0 }} />
         </button>
       </footer>
     </div>

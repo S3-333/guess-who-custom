@@ -57,6 +57,12 @@
   align-items: center;
 }
 
+.btn-icon--basket {
+  /* Filtro para convertir a #065094 (Azul profundo) */
+  filter: invert(19%) sepia(94%) saturate(2256%) hue-rotate(193deg) brightness(91%) contrast(101%);
+}
+
+
 /* ─── Main ─────────────────────────────────────────────────── */
 .editor-page__main {
   flex: 1;

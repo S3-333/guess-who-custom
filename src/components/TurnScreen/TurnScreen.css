@@ -33,16 +33,59 @@
 }
 
 .turn-screen__icon {
-  font-size: 5rem;
   margin-bottom: 20px;
   display: block;
   animation: bounceSoft 2s infinite;
 }
 
+.turn-screen__icon-img {
+  height: 5rem;
+  width: auto;
+  object-fit: contain;
+}
+
+/* ─── Animación de Candado ────────── */
+.padlock-anim {
+  width: 5rem;
+  height: 5rem;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.padlock-anim__img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+.padlock-anim__img--closed {
+  animation: padlockClose 3s infinite ease-in-out;
+}
+
+.padlock-anim__img--open {
+  animation: padlockOpen 3s infinite ease-in-out;
+}
+
+@keyframes padlockClose {
+  0%, 40%, 100% { opacity: 1; transform: scale(1); }
+  50%, 90% { opacity: 0; transform: scale(0.8); }
+}
+
+@keyframes padlockOpen {
+  0%, 40%, 100% { opacity: 0; transform: scale(0.8); }
+  50%, 90% { opacity: 1; transform: scale(1.1); }
+}
+
 @keyframes bounceSoft {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
+  50% { transform: translateY(-10px); }
 }
+
 
 /* ─── Badge del jugador ───────── */
 .turn-screen__badge {

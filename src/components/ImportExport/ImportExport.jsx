@@ -17,6 +17,10 @@ import { useRef } from 'react'
 import { downloadJSON, readJSONFromUser, readJSONFile } from '../../utils/helpers'
 import './ImportExport.css'
 
+// Iconos
+import downloadIcon from '../../assets/icons/download.webp'
+import importIcon from '../../assets/icons/import.webp'
+
 const FILE_VERSION = '1.0'
 
 export function ImportExport({ cards, onImport }) {
@@ -91,7 +95,7 @@ export function ImportExport({ cards, onImport }) {
         onClick={handleExport}
         title="Guardar tablero en tu computadora"
       >
-        💾 Guardar Tablero
+        <img src={downloadIcon} alt="" className="btn-icon" /> Guardar Tablero
       </button>
 
       <button
@@ -100,7 +104,7 @@ export function ImportExport({ cards, onImport }) {
         onClick={handleImport}
         title="Cargar un tablero guardado"
       >
-        📂 Cargar Tablero
+        <img src={importIcon} alt="" className="btn-icon" /> Cargar Tablero
       </button>
 
       {/* Input oculto (Fallback para navegadores sin File System Access API) */}

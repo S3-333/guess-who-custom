@@ -26,9 +26,15 @@
 }
 
 .game-setup__icon {
-  font-size: 4rem;
   margin-bottom: var(--space-4);
 }
+
+.game-setup__icon-img {
+  height: 4rem;
+  width: auto;
+  object-fit: contain;
+}
+
 
 .game-setup__title {
   font-size: var(--font-size-2xl);
@@ -392,26 +398,54 @@
 
 .game-card__guess-btn {
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(0.8);
+  transform: translate(-50%, -50%) scale(0.7);
   opacity: 0;
-  transition: var(--transition-pop);
-  z-index: 10;
-  background: var(--color-yellow) !important;
-  border: var(--border-width) solid var(--color-bg-dark) !important;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 20;
+  background: linear-gradient(135deg, var(--color-yellow) 0%, #ff9800 100%) !important;
   color: #000 !important;
-  font-size: var(--font-size-xs) !important;
-  font-weight: 500 !important;
-  padding: 10px 15px !important;
-  box-shadow: 0 4px 0 #c79100;
+  font-family: var(--font-family-display) !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.05em;
+  padding: 5px !important;
   border-radius: var(--radius-full) !important;
+  text-transform: uppercase;
+  pointer-events: none; /* Evita clicks accidentales antes de que aparezca */
 }
 
 .game-card-3d:hover .game-card__guess-btn {
   opacity: 1;
   transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+  animation: pulseGuess 2s infinite;
 }
+
+.game-card__guess-btn:hover {
+  transform: translate(-50%, -52%) scale(1.1) !important;
+  background: linear-gradient(135deg, #fff2cc 0%, var(--color-yellow) 100%) !important;
+}
+
+.game-card__guess-btn:active {
+  transform: translate(-50%, -48%) scale(0.95) !important;
+}
+
+.game-card__guess-btn .btn-icon {
+  animation: rotateTarget 4s linear infinite;
+}
+
+@keyframes pulseGuess {
+  0% { box-shadow: 0 6px 0 #cc8400, 0 0 0 0 rgba(255, 193, 7, 0.6); }
+  70% { box-shadow: 0 6px 0 #cc8400, 0 0 0 15px rgba(255, 193, 7, 0); }
+  100% { box-shadow: 0 6px 0 #cc8400, 0 0 0 0 rgba(255, 193, 7, 0); }
+}
+
+@keyframes rotateTarget {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 
 /* Footer (fuera del tablero 3D) */
 .game-board__footer {

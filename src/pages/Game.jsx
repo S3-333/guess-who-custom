@@ -19,6 +19,12 @@ import { TurnScreen } from '../components/TurnScreen/TurnScreen'
 import { PHASES } from '../hooks/useGame'
 import './Game.css'
 
+// Iconos
+import gameJoyIcon from '../assets/icons/game_joy.webp'
+import leftArrowIcon from '../assets/icons/left_arrow.webp'
+import rightArrowIcon from '../assets/icons/right_arrow.webp'
+import targetIcon from '../assets/icons/target.webp'
+
 export function Game({ cards, game, actions, onBack }) {
   // Filtramos solo cartas que tengan nombre (la imagen es opcional)
   const validCards = cards.filter(c => c.name.trim())
@@ -140,7 +146,9 @@ function GameSetup({ onStart, onBack }) {
     <div className="game-setup animate-fade-in">
       <div className="game-setup__card animate-slide-up">
 
-        <div className="game-setup__icon">🎮</div>
+        <div className="game-setup__icon">
+          <img src={gameJoyIcon} alt="" className="game-setup__icon-img icon--blue" />
+        </div>
         <h1 className="game-setup__title">Configurar partida</h1>
         <p className="game-setup__subtitle">Ingresá los nombres de los jugadores</p>
 
@@ -182,13 +190,13 @@ function GameSetup({ onStart, onBack }) {
             onClick={() => onStart(p1Name, p2Name)}
             disabled={!p1Name.trim() || !p2Name.trim()}
           >
-            🚀 ¡Empezar!
+            ¡Empezar!
           </button>
           <button
             className="btn btn-ghost"
             onClick={onBack}
           >
-            ← Volver al editor
+            <img src={leftArrowIcon} alt="" className="btn-icon icon--blue" /> Volver al editor
           </button>
         </div>
       </div>
@@ -322,7 +330,7 @@ function GameBoard({ cards, game, onDiscard, onGuess, actions }) {
                           }}
                           aria-label={`Adivinar: ${card.name}`}
                         >
-                          🎯 Adivinar
+                          <img src={targetIcon} alt="" className="btn-icon" /> Adivinar
                         </button>
                       )}
                     </div>
@@ -346,7 +354,7 @@ function GameBoard({ cards, game, onDiscard, onGuess, actions }) {
           className="btn btn-secondary"
           onClick={handlePassTurn}
         >
-          Pasar turno →
+          Pasar turno <img src={rightArrowIcon} alt="" className="btn-icon" style={{ marginLeft: '10px', marginRight: 0 }} />
         </button>
       </footer>
     </div>
@@ -390,7 +398,7 @@ function GameFinished({ winnerName, winnerNum, secretCard, onRestart, onBack }) 
             className="btn btn-secondary"
             onClick={onBack}
           >
-            ← Volver al editor
+            <img src={leftArrowIcon} alt="" className="btn-icon" /> Volver al editor
           </button>
         </div>
       </div>

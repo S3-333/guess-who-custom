@@ -17,6 +17,10 @@ import { CardGrid } from '../components/CardGrid/CardGrid'
 import { ImportExport } from '../components/ImportExport/ImportExport'
 import './Editor.css'
 
+// Iconos
+import basketIcon from '../assets/icons/basket.webp'
+import gameJoyIcon from '../assets/icons/game_joy.webp'
+
 export function Editor({ board, onPlay }) {
   const { cards, addCard, removeCard, updateCard, loadBoard, clearBoard } = board
 
@@ -69,7 +73,7 @@ export function Editor({ board, onPlay }) {
             className="btn btn-ghost"
             onClick={handleClear}
           >
-            🗑 Limpiar todo
+            <img src={basketIcon} alt="" className="btn-icon btn-icon--basket" /> Limpiar todo
           </button>
         </div>
 

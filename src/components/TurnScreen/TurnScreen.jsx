@@ -19,13 +19,27 @@
  */
 import './TurnScreen.css'
 
+// Iconos
+import rightArrowIcon from '../../assets/icons/right_arrow.webp'
+import padlockIcon from '../../assets/icons/padlock.webp'
+import padlock2Icon from '../../assets/icons/padlock_2.webp'
+import refreshIcon from '../../assets/icons/refresh.webp'
+import gameJoyIcon from '../../assets/icons/game_joy.webp'
+
 export function TurnScreen({ playerName, playerNum, message, onContinue, variant = 'turn' }) {
   return (
     <div className={`turn-screen turn-screen--${variant} animate-fade-in`}>
       <div className="turn-screen__content animate-slide-up">
         {/* Ícono animado según el contexto */}
         <div className="turn-screen__icon">
-          {variant === 'lock' ? '🔒' : '🔄'}
+          {variant === 'lock' ? (
+            <div className="padlock-anim icon--blue">
+              <img src={padlock2Icon} alt="" className="padlock-anim__img padlock-anim__img--closed" />
+              <img src={padlockIcon} alt="" className="padlock-anim__img padlock-anim__img--open" />
+            </div>
+          ) : (
+            <img src={refreshIcon} alt="" className="turn-screen__icon-img icon--blue" />
+          )}
         </div>
 
         {/* Badge del jugador */}
@@ -52,7 +66,15 @@ export function TurnScreen({ playerName, playerNum, message, onContinue, variant
           className="btn btn-primary btn-lg turn-screen__btn"
           onClick={onContinue}
         >
-          {variant === 'lock' ? 'Continuar →' : `¡Soy ${playerName}, comenzar!`}
+          {variant === 'lock' ? (
+            <>
+              Continuar <img src={rightArrowIcon} alt="" className="btn-icon icon--white" style={{ marginLeft: '10px', marginRight: 0 }} />
+            </>
+          ) : (
+            <>
+              ¡Soy {playerName}, comenzar!
+            </>
+          )}
         </button>
       </div>
     </div>
