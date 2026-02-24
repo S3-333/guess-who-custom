@@ -1,16 +1,93 @@
-# React + Vite
+# 🕵️‍♂️ Guess Who Custom Editor & Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+¡Bienvenido a **Guess Who Custom**, una versión moderna, educativa y totalmente personalizable del clásico juego de mesa "¿Quién es quién?". Esta aplicación permite a los usuarios no solo jugar, sino también convertirse en creadores, diseñando sus propios tableros con fotos y nombres personalizados.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Características Principales
 
-## React Compiler
+### 🎨 Editor de Tableros Intuitivo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Creación Dinámica**: Añade, edita o elimina cartas de forma sencilla.
+- **Personalización Total**: Arrastra fotos directamente y asigna nombres a tus personajes.
+- **Guardado Local**: El progreso se guarda automáticamente en el dispositivo.
 
-## Expanding the ESLint configuration
+### 🎮 Experiencia de Juego Inmersiva
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Modo Multijugador Local**: Diseñado para jugar en el mismo dispositivo con pantallas de bloqueo de seguridad entre turnos.
+- **Tablero 3D Interactivo**: Fichas que se abaten físicamente sobre el tablero al ser descartadas, simulando la experiencia del juego real.
+- **Animaciones Premium**: Sistema de candado animado para cambios de turno y efectos visuales pulidos.
+
+### 💾 Sistema de Importación/Exportación
+
+- **Portabilidad**: Exporta tus tableros personalizados como archivos `.json`.
+- **Carga Instantánea**: Comparte tus archivos de tablero con amigos o cárgalos en cualquier momento.
+
+---
+
+## 🚀 Tecnologías Utilizadas
+
+Este proyecto está construido con lo último en desarrollo web moderno:
+
+- **[React 19](https://react.dev/)**: Para una interfaz reactiva y eficiente.
+- **[Vite](https://vitejs.dev/)**: Como entorno de desarrollo ultra-rápido.
+- **CSS Moderno**: Diseño "Chunky & Playful" utilizando variables CSS, Flexbox, Grid y animaciones 3D.
+- **File System Access API**: Para una experiencia de guardado y carga de archivos más fluida.
+
+---
+
+## 🛠️ Instalación y Configuración
+
+Para ejecutar este proyecto localmente, sigue estos pasos:
+
+1.  **Clonar el repositorio:**
+
+    ```bash
+    git clone https://github.com/tu-usuario/guess-who-custom.git
+    cd guess-who-custom
+    ```
+
+2.  **Instalar dependencias:**
+
+    ```bash
+    npm install
+    ```
+
+3.  **Iniciar el servidor de desarrollo:**
+
+    ```bash
+    npm run dev
+    ```
+
+4.  **Abrir en el navegador:**
+    Visita `http://localhost:5173` para empezar a crear.
+
+---
+
+## 📁 Estructura del Proyecto
+
+```text
+src/
+├── assets/         # Imágenes, logos e iconos profesionales
+├── components/     # Componentes reutilizables (Card, CardGrid, ImportExport, etc.)
+├── hooks/          # Lógica de juego y estado (useBoard, useGame)
+├── pages/          # Vistas principales (Editor, Game)
+├── styles/         # Sistema de diseño global y tokens
+└── utils/          # Funciones de ayuda y exportación JSON
+```
+
+---
+
+## 🖌️ Diseño y Estética
+
+El proyecto sigue una estética **"Chunky & Playful"**, diseñada específicamente para ser accesible y atractiva para un público infantil y familiar. Utiliza una paleta de colores vibrante, tipografías legibles y micro-animaciones que mejoran la experiencia de usuario (UX).
+
+---
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. ¡Siéntete libre de usarlo, mejorarlo y compartirlo!
+
+---
+
+Hecho con ❤️
