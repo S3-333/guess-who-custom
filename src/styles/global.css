@@ -73,7 +73,11 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  /* Evita el "salto" de layout cuando aparece/desaparece el scrollbar */
+  scrollbar-gutter: stable;
+  overflow-y: scroll;
 }
+
 
 body {
   font-family: var(--font-family);

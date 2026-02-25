@@ -22,6 +22,7 @@ import { useGame } from './hooks/useGame'
 import { Editor } from './pages/Editor'
 import { Game } from './pages/Game'
 import { Splash } from './components/Splash/Splash'
+import { HelpSection } from './components/HelpSection/HelpSection'
 import logo from './assets/adivina_quien.webp'
 import './styles/App.css'
 
@@ -37,6 +38,7 @@ const PAGES = {
 
 function App() {
   const [showSplash, setShowSplash] = useState(true)
+  const [showHelp, setShowHelp] = useState(false)
 
   /**
    * Estado de navegación: qué página estamos viendo.
@@ -100,6 +102,14 @@ function App() {
           <div className="app-nav__logo-wrapper" onClick={handleGoToEditor} style={{ cursor: 'pointer' }}>
              <img src={logo} alt="Guess Who Logo" className="app-nav__logo-png" />
           </div>
+
+          <button 
+            className="app-nav__help-btn" 
+            onClick={() => setShowHelp(true)}
+            title="Cómo jugar y consejos"
+          >
+            ?
+          </button>
         </nav>
 
       {/* Renderizado condicional de la página activa */}
@@ -119,6 +129,8 @@ function App() {
           />
         )}
       </main>
+
+      {showHelp && <HelpSection onClose={() => setShowHelp(false)} />}
       </div>
     </>
   )
