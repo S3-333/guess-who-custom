@@ -32,7 +32,6 @@ function createEmptyCard() {
 
 /**
  * useBoard – Hook que encapsula toda la lógica del tablero.
- *
  * Retorna el estado y las funciones necesarias para que
  * el componente Editor pueda operar sobre las cartas.
  */
