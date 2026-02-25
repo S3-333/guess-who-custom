@@ -100,7 +100,7 @@ function App() {
         {/* Navegación rediseñada: Logo PNG central clickeable */}
         <nav className="app-nav" aria-label="Branding principal">
           <div className="app-nav__logo-wrapper" onClick={handleGoToEditor} style={{ cursor: 'pointer' }}>
-             <img src={logo} alt="Guess Who Logo" className="app-nav__logo-png" />
+             <img src={logo} alt="Guess Who Logo" className="app-nav__logo-png" width="500" height="200" />
           </div>
 
           <button 
